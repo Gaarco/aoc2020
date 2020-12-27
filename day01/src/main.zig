@@ -1,7 +1,9 @@
 const std = @import("std");
+const warn = std.debug.warn;
 const allocator = std.heap.page_allocator;
 
 const input = @embedFile("../input.txt");
+const sample = @embedFile("../sample.txt");
 
 pub fn main() anyerror!void {
     var iterator = std.mem.split(input, "\n");
@@ -11,26 +13,18 @@ pub fn main() anyerror!void {
     while (iterator.next()) |val| {
         try list.append(std.fmt.parseUnsigned(u32, val, 10) catch continue);
     }
-    solvePart1(list);
-    solvePart2(list);
+    solve(list.items);
 }
 
-pub fn solvePart1(list: std.ArrayList(u32)) void {
-    for (list.items) |x, i| {
-        for (list.items[i + 1 ..]) |y| {
+pub fn solve(items: []const u32) void {
+    for (items) |x, idx0| {
+        for (items[idx0 + 1 ..]) |y, idx1| {
             if (x + y == 2020) {
-                std.debug.warn("Part 1: {} * {} == {}\n", .{ x, y, x * y });
+                warn("Part 1: {}\n", .{x * y});
             }
-        }
-    }
-}
-
-pub fn solvePart2(list: std.ArrayList(u32)) void {
-    for (list.items) |x, i| {
-        for (list.items[i + 1 ..]) |y, j| {
-            for (list.items[j + 1 ..]) |k| {
-                if (x + y + k == 2020) {
-                    std.debug.warn("Part 2: {} * {} * {} == {}\n", .{ x, y, k, x * y * k });
+            for (items[std.math.max(idx0, idx1)..]) |z, idx2| {
+                if (x + y + z == 2020) {
+                    warn("Part 2: {}\n", .{x * y * z});
                 }
             }
         }
