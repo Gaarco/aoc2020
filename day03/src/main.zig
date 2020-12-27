@@ -17,7 +17,8 @@ pub fn main() anyerror!void {
     const r21 = solve(rows, 2, 1);
     const r = r11 * r13 * r15 * r17 * r21;
 
-    std.debug.warn("Result: {} * {} * {} * {} * {} == {}\n", .{ r11, r13, r15, r17, r21, r });
+    std.debug.warn("Part 1:\n\tr11: {}\n\tr13: {}\n\tr15: {}\n\tr17: {}\n\tr21: {}\n", .{ r11, r13, r15, r17, r21 });
+    std.debug.warn("Part 2: {}\n", .{r});
 }
 
 pub fn solve(rows: std.ArrayList([]const u8), row_skip: u32, col_skip: u32) u32 {
@@ -35,6 +36,5 @@ pub fn solve(rows: std.ArrayList([]const u8), row_skip: u32, col_skip: u32) u32 
         }
         col_index += col_skip;
     }
-    std.debug.warn("Right {}, Down {}: {}\n", .{ col_skip, row_skip, counter });
     return counter;
 }
