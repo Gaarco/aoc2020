@@ -3,7 +3,6 @@ const warn = std.debug.warn;
 const allocator = std.heap.page_allocator;
 
 const input = @embedFile("../input.txt");
-const sample = @embedFile("../sample.txt");
 
 pub fn main() anyerror!void {
     var iterator = std.mem.split(input, "\n");
